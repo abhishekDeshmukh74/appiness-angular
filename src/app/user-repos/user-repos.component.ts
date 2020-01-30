@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AppService } from '../app.service';
+import { Repo } from '../app.interfaces';
 
 @Component({
   selector: 'app-user-repos',
@@ -12,6 +13,7 @@ export class UserReposComponent implements OnInit, OnDestroy {
 
   routeSubscription: Subscription;
   username: string;
+  repos: Repo[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,7 +32,17 @@ export class UserReposComponent implements OnInit, OnDestroy {
   }
 
   getRepos() {
-
+    this.appService.getReposByUsername(this.username)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          this.repos = res;
+        },
+        (error: Error) => {
+          console.log(error);
+          // this.alertService.error('Login failed');
+        }
+      );
   }
 
   ngOnDestroy() {

@@ -17,7 +17,7 @@ const routes: Routes = [
     component: GithubUsersComponent,
   },
   {
-    path: 'user-repo/:username',
+    path: 'user-repos/:username',
     component: UserReposComponent,
   },
   {

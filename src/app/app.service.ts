@@ -21,6 +21,6 @@ export class AppService {
   }
 
   getReposByUsername(username: string) {
-    return this.http.get(`${this.githubApiUrl}/users`);
+    return this.http.get(`${this.githubApiUrl}/users/${username}/repos`);
   }
 }
