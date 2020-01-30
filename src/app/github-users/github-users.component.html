@@ -1,0 +1,8 @@
+<h1>Github users</h1>
+<mat-list>
+    <mat-list-item class="list-item" *ngFor="let user of users">
+        <a [routerLink]="['/user-repos', user.login]">
+            {{user.login}}
+        </a>
+    </mat-list-item>
+</mat-list>

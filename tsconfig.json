@@ -3,6 +3,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "@constants": [
+        "src/environments/constants.ts"
+      ],
+      "@environment": [
+        "src/environments/environment.ts"
+      ],
+    },
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
