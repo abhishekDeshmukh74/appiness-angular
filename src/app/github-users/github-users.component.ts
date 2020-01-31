@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { User } from '../app.interfaces';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-github-users',
@@ -10,6 +12,7 @@ import { User } from '../app.interfaces';
 export class GithubUsersComponent implements OnInit {
 
   users: User[];
+  searchBoxFormControl = new FormControl('');
 
   constructor(
     private appService: AppService,
@@ -17,6 +20,15 @@ export class GithubUsersComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+
+    this.searchBoxFormControl
+      .valueChanges
+      .pipe(
+        debounceTime(200)
+      )
+      .subscribe((username: string) => {
+        this.searchUsers(username);
+      });
   }
 
   getUsers() {
@@ -25,6 +37,19 @@ export class GithubUsersComponent implements OnInit {
         (res: any) => {
           console.log(res);
           this.users = res;
+        },
+        (error: Error) => {
+          console.log(error);
+          // this.alertService.error('Login failed');
+        }
+      );
+  }
+  searchUsers(username: string) {
+    this.appService.searchUsers(username)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          this.users = res.items;
         },
         (error: Error) => {
           console.log(error);

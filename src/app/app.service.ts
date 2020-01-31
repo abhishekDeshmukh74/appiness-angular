@@ -20,7 +20,12 @@ export class AppService {
     return this.http.get(`${this.githubApiUrl}/users`);
   }
 
+  searchUsers(username: string) {
+    return this.http.get(`${this.githubApiUrl}/search/users?q=${username}`);
+  }
+
   getReposByUsername(username: string) {
     return this.http.get(`${this.githubApiUrl}/users/${username}/repos`);
   }
+
 }
